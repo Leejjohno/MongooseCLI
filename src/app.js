@@ -1,18 +1,23 @@
 require("./db/connection");
 const yargs = require("yargs");
 const mongoose = require("mongoose");
-const { addFilm } = require("./movie/functions");
+const { addFilm, list, updateFilm } = require("./movie/functions");
 
 const app = async (yargsObj) => {
     if (yargsObj.add) {
         
-        await addFilm({ title: yargsObj.title, actor: yargsObj.actor })
+        await addFilm({ title: yargsObj.title, actor: yargsObj.actor });
+       
         //add film to database from yargs input
 
     } else if (yargsObj.list) {
-        //find films
+
+        await list({ title: yargsObj.title, actor: yargsObj.actor });
+        //list films
 
     } else if (yargsObj.update) {
+
+        await updateFilm({ title: yargsObj.title, actor: yargsObj.actor })
         //update a film
 
     } else if (yargsObj.delete) {
@@ -22,6 +27,6 @@ const app = async (yargsObj) => {
         console.log("Incorrect command");
     }
     await mongoose.disconnect();
-}
+};
 
 app(yargs.argv);
