@@ -38,7 +38,8 @@ exports.updateFilm = async (filmObj) => {
 
 exports.deleteFilm = async (filmObj) => {
     try {
-        const response = await Film.findOneAndDelete({filter: {title: filmObj.title}}, {query: {title: filmObj.title}});
+        const response = await Film.deleteOne({filmObj})
+        // const response = await Film.findOneAndDelete({filter: {title: filmObj.title}}, 
         //--delete a film record
 
         console.log(response);

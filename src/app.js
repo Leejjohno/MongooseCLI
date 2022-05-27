@@ -22,7 +22,7 @@ const app = async (yargsObj) => {
 
     } else if (yargsObj.delete) {
 
-        await deleteFilm({ title: yargsObj.title });
+        await deleteFilm({ yargsObj });
         //delete a film
 
     } else {
