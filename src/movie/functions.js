@@ -10,11 +10,11 @@ exports.addFilm = async (filmObj) => { //create a new entry
     } catch (error) { //catch errors
         console.log(error) //then console log them
     }
-}
+};
 
 exports.list = async (filmObj) => {
     try {
-        const response = await Film.find(filmObj);
+        const response = await Film.find({filter: filmObj});
         //--search for a film
 
         console.log(response);
@@ -22,10 +22,28 @@ exports.list = async (filmObj) => {
     } catch (error) { //catch errors
         console.log(error) //then console log them
     }
-}
+};
 
 exports.updateFilm = async (filmObj) => {
     try {
-        const response = await Film.updateOne(filmObj);
+        const response = await Film.updateOne({filter: filmObj});
+        //--update a film record
+
+        console.log(response);
+
+    } catch (error) { //catch errors
+        console.log(error) //then console logs them
     }
-}
+};
+
+exports.deleteFilm = async (filmObj) => {
+    try {
+        const response = await Film.deleteOne({title: filmObj});
+        //--delete a film record
+
+        console.log(response);
+
+    } catch (error) { //catch errors
+        console.log(error) //then console logs them
+    }
+};
