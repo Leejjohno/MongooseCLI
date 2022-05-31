@@ -26,7 +26,15 @@ exports.list = async (filmObj) => {
 
 exports.updateFilm = async (filmObj) => {
     try {
-        const response = await Film.updateOne({filter: filmObj});
+            const query = await Film.find(
+                {filter: {title: filmObj.title}}
+            );
+                if (query
+
+            const response = await Film.updateOne(
+                {$set: {title: filmObj.title}},
+                {$set: {actor: filmObj.actor}}
+                );
         //--update a film record
 
         console.log(response);
@@ -38,8 +46,11 @@ exports.updateFilm = async (filmObj) => {
 
 exports.deleteFilm = async (filmObj) => {
     try {
-        const response = await Film.deleteOne({filmObj})
-        // const response = await Film.findOneAndDelete({filter: {title: filmObj.title}}, 
+        const response = await Film.deleteOne(
+            conditions == {
+                title: filmObj.title
+            })
+
         //--delete a film record
 
         console.log(response);

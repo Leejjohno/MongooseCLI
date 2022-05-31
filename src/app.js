@@ -15,14 +15,23 @@ const app = async (yargsObj) => {
         await list({ title: yargsObj.title, actor: yargsObj.actor });
         //list films
 
-    } else if (yargsObj.update) {
+    } else if ( yargsObj.update ) {
 
-        await updateFilm({ title: yargsObj.title, actor: yargsObj.actor });
+        await updateFilm({
+            searchTitle: yargsObj.title,
+            searchActor: yargsObj.actor,
+            title: yargsObj.title,
+            actor: yargsObj.actor
+            });
         //update a film
+
+        if (yargsObj = false) {
+            addFilm()
+        }
 
     } else if (yargsObj.delete) {
 
-        await deleteFilm({ yargsObj });
+        await deleteFilm( yargsObj.title );
         //delete a film
 
     } else {
