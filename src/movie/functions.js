@@ -14,8 +14,8 @@ exports.addFilm = async (filmObj) => { //create a new entry
 
 exports.list = async (filmObj) => {
     try {
-        const response = await Film.find({filter: filmObj});
-        //--search for a film
+        const response = await Film.find({filmObj});
+        //--list all entries on the database
 
         console.log(response);
 
@@ -24,17 +24,29 @@ exports.list = async (filmObj) => {
     }
 };
 
-exports.updateFilm = async (filmObj) => {
+exports.find = async ( filmObj ) => {
     try {
-            const query = await Film.find(
-                {filter: {title: filmObj.title}}
-            );
-                if (query
+        const response = await Film.findOne({ title: filmObj.title })
+        //--search for one film by title
 
-            const response = await Film.updateOne(
-                {$set: {title: filmObj.title}},
-                {$set: {actor: filmObj.actor}}
-                );
+        console.log(response);
+
+    } catch (error) {
+        console.log(error)
+    }
+};
+
+exports.updateOne = async ( filterObj, filmObj ) => {
+    console.log(filterObj, filmObj)
+    try {
+        // const filter = { title: filterObj.update };
+        // const response = await Film.updateOne({
+        //     filter: filterObj = await Film.findOne({ title: filterObj.title }), // this is my filter query, this is what we type in to search for to edit
+        //     update: filmObj = filterObj // generalise so that I can update the entire film object
+        // });
+
+        const response = await Film.updateOne( filterObj, filmObj )
+
         //--update a film record
 
         console.log(response);
@@ -44,12 +56,9 @@ exports.updateFilm = async (filmObj) => {
     }
 };
 
-exports.deleteFilm = async (filmObj) => {
+exports.deleteFilm = async ( filterObj, filmObj ) => {
     try {
-        const response = await Film.deleteOne(
-            conditions == {
-                title: filmObj.title
-            })
+        const response = await Film.deleteOne( filterObj, filmObj )
 
         //--delete a film record
 

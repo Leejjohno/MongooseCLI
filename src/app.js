@@ -1,37 +1,35 @@
 require("./db/connection");
 const yargs = require("yargs");
 const mongoose = require("mongoose");
-const { addFilm, list, updateFilm, deleteFilm } = require("./movie/functions");
+const { addFilm, list, find, updateOne, deleteFilm } = require("./movie/functions");
+
 
 const app = async (yargsObj) => {
+    console.log(yargs.argv)
     if (yargsObj.add) {
         
         await addFilm({ title: yargsObj.title, actor: yargsObj.actor });
        
         //add film to database from yargs input
 
-    } else if (yargsObj.list) {
+    } else if ( yargsObj.list ) {
 
-        await list({ title: yargsObj.title, actor: yargsObj.actor });
+        await list({ yargsObj });
         //list films
 
-    } else if ( yargsObj.update ) {
+    } else if ( yargsObj.find ) {
 
-        await updateFilm({
-            searchTitle: yargsObj.title,
-            searchActor: yargsObj.actor,
-            title: yargsObj.title,
-            actor: yargsObj.actor
-            });
+        await find({ title: yargsObj.title }) ;
+        //find film
+
+    } else if ( yargsObj.update ) { //we define our yargs object command as update
+
+        await updateOne({ title: yargsObj.title[0] }, {title: yargsObj.title[1] })
         //update a film
 
-        if (yargsObj = false) {
-            addFilm()
-        }
+    } else if ( yargsObj.delete ) {
 
-    } else if (yargsObj.delete) {
-
-        await deleteFilm( yargsObj.title );
+        await deleteFilm({ title: yargsObj.title });
         //delete a film
 
     } else {
